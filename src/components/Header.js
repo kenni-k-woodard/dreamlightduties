@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react';
-import { UserContext } from '../context/UserContext.js';
+import { UserContext, useUser } from '../context/UserContext.js';
 import { signOut } from '../services/auth.js';
 import './Header.css';
 
 export default function Header() {
   const [isActive, setIsActive] = useState(false);
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser } = useUser();
 
   const handleLogout = async () => {
     try {
@@ -18,14 +18,15 @@ export default function Header() {
 
   return (
     <>
-      <div>
+      <div className="titleBar">
         <h1>Dreamlight Duties</h1>
       </div>
-      <div className="navBar">
-        <a>
-          <span></span>
-        </a>
-        <button onClick={handleLogout}>sign out</button>
+      <div>
+        <div className="navBar">
+          {/* <button>SignIn/SignUp</button> */}
+          <p>Hey there, {user.email}</p>
+          <button onClick={handleLogout}>sign out</button>
+        </div>
       </div>
     </>
   );
