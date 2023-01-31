@@ -1,12 +1,26 @@
 import React, { useState } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
+import { useContext } from 'react';
+import { NavLink, useParams, Redirect } from 'react-router-dom';
+import { UserContext } from '../../context/UserContext.js';
+import { authUser } from '../../services/auth.js';
 
 export default function Auth() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { type } = useParams();
+  const { user, setUser } = useContext(UserContext);
+  if (user) {
+    return <Redirect to="/duties" />;
+  }
+
   const submitAuth = async () => {
     //later
+    try {
+      const user = authUser(email, password, type);
+      setUser(user);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
@@ -19,12 +33,16 @@ export default function Auth() {
         </div>
         <div>
           <label>Email</label>
-          <input className="input" type="email"></input>
+          <input className="input" type="email" onChange={(e) => setEmail(e.target.value)}></input>
           <label>Password</label>
-          <input className="input" type="password"></input>
+          <input
+            className="input"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          ></input>
         </div>
         <div>
-          <button>Submit</button>
+          <button onClick={submitAuth}>Submit</button>
         </div>
       </nav>
     </div>
