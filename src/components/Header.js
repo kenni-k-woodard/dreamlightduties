@@ -17,9 +17,16 @@ export default function Header() {
   };
 
   return (
-    <div>
-      <h1>Dreamlight Duties</h1>
-      <button onClick={handleLogout}>sign out</button>
-    </div>
+    <>
+      <div>
+        <h1>Dreamlight Duties</h1>
+      </div>
+      <div className="navBar">
+        <a>
+          <span></span>
+        </a>
+        <button onClick={handleLogout}>sign out</button>
+      </div>
+    </>
   );
 }
