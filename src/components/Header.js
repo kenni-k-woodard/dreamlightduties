@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, Link } from 'react';
 import { UserContext, useUser } from '../context/UserContext.js';
 import { signOut } from '../services/auth.js';
 import './Header.css';
@@ -23,9 +23,12 @@ export default function Header() {
       </div>
       <div>
         <div className="navBar">
-          {/* <button>SignIn/SignUp</button> */}
-          <p>Hey there, {user.email}</p>
-          <button onClick={handleLogout}>sign out</button>
+          {user && (
+            <>
+              <p>Hey there, {user.email}</p>
+              <button onClick={handleLogout}>sign out</button>
+            </>
+          )}
         </div>
       </div>
     </>
